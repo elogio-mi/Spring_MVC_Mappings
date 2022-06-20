@@ -19,31 +19,42 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
 import info.example.beans.DataBean;
-import info.example.beans.ListBean;
+import info.example.beans.MapBean;
 
 
 @Controller
 public class TestController {
 	
 	@GetMapping("FEtest")
-	public String FEtest(DataBean bean) {
+	public String FEtest(DataBean bean, Model model) {
 		
 		bean.setB1("b1-hidden");
 		bean.setB2("b2-text");
 		bean.setB3("b3-pw");
 		bean.setB4("b4-textarea");
 		
-		Map<String, String> data_map1 = new HashMap<String, String>();
-		data_map1.put("list1", "data1");
-		data_map1.put("list2", "data2");
-		data_map1.put("list3", "data3");
-
-		bean.setB5(data_map1);
-		bean.setB6(data_map1);
-		bean.setB7(data_map1);
-		bean.setB8(data_map1);
-		bean.setB9(data_map1);
-		bean.setB10(data_map1);
+		ArrayList<String> data_list1 = new ArrayList<String>();
+		data_list1.add("data1");
+		data_list1.add("data2");
+		data_list1.add("data3");
+		model.addAttribute("data_list1", data_list1);
+		
+		MapBean map_bean1 = new MapBean();
+		MapBean map_bean2 = new MapBean();
+		MapBean map_bean3 = new MapBean();
+		
+		map_bean1.setKey("항목1");
+		map_bean1.setValue("data1");
+		map_bean2.setKey("항목2");
+		map_bean2.setValue("data2");
+		map_bean3.setKey("항목3");
+		map_bean3.setValue("data3");
+		
+		ArrayList<MapBean> data_list2 = new ArrayList<MapBean>();
+		data_list2.add(map_bean1);
+		data_list2.add(map_bean2);
+		data_list2.add(map_bean3);
+		model.addAttribute("data_list2", data_list2);
 		
 		return "test1";
 	}
